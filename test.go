@@ -18,6 +18,7 @@ func resourceMlinTest() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 				Deprecated: "Use 'attribute' instead of 'attr'",
+				Description: "attr.",
 			},
 			"attribute": {
 				Type: schema.TypeString,
