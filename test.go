@@ -15,16 +15,31 @@ func resourceMlinTest() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"attr": {
 				Type: schema.TypeString,
-				Required: true,
+				Optional: true,
 				ForceNew: true,
+				Deprecated: "Use 'attribute' instead of 'attr'",
+			},
+			"attribute": {
+				Type: schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+				ConflictsWith: []string{"attr"},
 			},
 		},
 	}
 }
 
 func resourceMlinTestCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	attr := d.Get("attr").(string)
-	d.SetId(attr)
+	if _, ok := d.GetOk("attr"); ok {
+		attr := d.Get("attr").(string)
+		d.SetId(attr)
+	} else if _, ok := d.GetOk("attribute"); ok {
+		attribute := d.Get("attribute").(string)
+		d.SetId(attribute)
+	} else {
+		return diag.Errorf("one of %q or %q must be set", "attr", "attribute")
+	}
+
 	return nil
 }
 
