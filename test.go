@@ -24,6 +24,7 @@ func resourceMlinTest() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 				ConflictsWith: []string{"attr"},
+				Description: "Attribute",
 			},
 		},
 	}
