@@ -13,7 +13,7 @@ func resourceMlinTest() *schema.Resource {
 		DeleteContext: resourceMlinTestDelete,
 
 		Schema: map[string]*schema.Schema{
-			"attr": {
+			"attribute": {
 				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
@@ -23,7 +23,7 @@ func resourceMlinTest() *schema.Resource {
 }
 
 func resourceMlinTestCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	attr := d.Get("attr").(string)
+	attr := d.Get("attribute").(string)
 	d.SetId(attr)
 	return nil
 }
